@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 
-		<title>Multiroom Chat</title>
+		<title>Datelly - Home</title>
 		
 		<!-- bootstrap - link cdn -->
         <link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
@@ -84,14 +84,43 @@
             </tbody>
         </table> 
 
-    </body>
-</html>
-<script>    
-    $(document).ready(function() {
-        $('#table_id').DataTable();
+        <script src="/socket.io/socket.io.js"></script>
+        
+        <script>    
+        
+            var socket = io('http://localhost');
+            
+            socket.on('msgParaCliente', function(data){
+                console.log(data);
+                // console.log(data.login + data.mensagem); 
+            }); 
 
-        $('#saveGoal').click(function(){
-            alert('ok');
-        });
-    }); 
-</script> 
+            $(document).ready(function() {
+                $('#table_id').DataTable({
+                    order: [[0, 'desc']]
+                });
+        
+                $('#saveGoal').click(function(){
+                        
+                });
+
+            // $.ajax({
+            //     url: "/components/config/action-send-plano",
+            //     data: { field1: 'valor 001##', field2: 'valor 002##' }, 
+            //     type: 'POST',
+            //     contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+            //     processData: false, // NEEDED, DON'T OMIT THIS
+            //     beforeSend: function () {
+            //         $("#" + formName).html(preloaderAzul);
+            //     },
+            //     success: function (response) {
+            //         $("#" + formName).html(response);
+            //     }
+            // });
+
+        
+
+            }); 
+        </script> 
+    </body>
+</html> 
