@@ -7,8 +7,8 @@ module.exports.authenticate = function(application,req,res)
 {
     var dadosForm = req.body;
 
-    req.assert('login','Insira seu login').notEmpty();
-    req.assert('login','Login deve conter entre 4 e 15 caracteres').len(4,15);
+    req.assert('login','Login não pode ser vazio').notEmpty(); 
+    req.assert('password','Senha não pode ser vazia').notEmpty(); 
     
     var erros = req.validationErrors(); 
     if(erros)
@@ -18,11 +18,19 @@ module.exports.authenticate = function(application,req,res)
     }
 
     var connection = application.config.dbConnection();
-    var goalsModel = new application.app.models.GoalsDAO(connection);
+    var usersModel = new application.app.models.UsersDAO(connection);
+    application.get('io').emit('sendEntrySystem',{login : dadosForm.login, mensagem: " entrou"}); 
     
-    goalsModel.getGoals(function(error,result){ 
-        
-        // application.get('io').emit('msgParaCliente',{login : dadosForm.login, mensagem: " acabou de entrar no chat"}); 
-        res.render('home/index',{goals: result});  
-      });  
+    usersModel.authenticate(dadosForm,function(error,resultUser){ 
+        if(resultUser.length  == 0)
+        { 
+            res.render('login/index',{validation : {}}); 
+        }else{  
+            var goalsModel = new application.app.models.GoalsDAO(connection);
+
+            goalsModel.getGoals(function(error,resultGoals){  
+                res.render('home/index',{goals: resultGoals});  
+            });
+        }
+    });
 }
