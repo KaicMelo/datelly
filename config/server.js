@@ -10,6 +10,9 @@ var bodyParse = require('body-parser');
 //IMPORTAR O MODULO FRAMEWORK EXPRESS-VALIDATOR
 var expressValidator = require('express-validator');
 
+//IMPORTAR O MODULO FRAMEWORK EXPRESS-SESSION
+var expressSession = require('express-session');
+
 //INICIAR O OBJETO EXPRESS
 var app = express();
 
@@ -25,6 +28,13 @@ app.use(bodyParse.urlencoded({extended:true}));
 
 //CONFIGURAR O MIDDLEWARE EXPRESS-VALIDATOR
 app.use(expressValidator());
+
+//CONFIGURAR O MIDDLEWARE EXPRESS-SESSION
+app.use(expressSession({
+    secret: 'dsadsasda',
+    resave: false,
+    saveUninitialized: false,
+}));
 
 //EFETUAR O AUTOLOAD DAS ROTAS,MIDDLEWARE,CONTROLLERS QUANDO O OBJETO APP FOR CRIADO
 consign().

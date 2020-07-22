@@ -15,15 +15,5 @@ module.exports.login = function(application,req,res)
 
     // application.get('io').emit('msgParaCliente',{apelido : dadosForm.apelido, mensagem: " acabou de entrar no chat"}); 
 
-    res.render('login/index');
-}
-
-module.exports.authenticate = function(application,req,res)
-{
-    var connection = application.config.dbConnection();
-    var goalsModel = new application.app.models.GoalsDAO(connection);
-    
-    goalsModel.getGoals(function(error,result){
-        res.render('home/index',{goals: result});  
-      });  
+    // res.render('login/index',{validation : ''});
 }
