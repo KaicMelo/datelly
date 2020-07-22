@@ -19,7 +19,7 @@ module.exports.authenticate = function(application,req,res)
 
     var connection = application.config.dbConnection();
     var usersModel = new application.app.models.UsersDAO(connection);
-    application.get('io').emit('sendEntrySystem',{login : dadosForm.login, mensagem: " entrou"}); 
+    // application.get('io').emit('sendEntrySystem',{login : dadosForm.login, mensagem: " entrou"}); 
     
     usersModel.authenticate(dadosForm,function(error,resultUser){ 
         if(resultUser.length  == 0)

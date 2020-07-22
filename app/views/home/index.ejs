@@ -97,45 +97,35 @@
             </tbody>
         </table> 
 
-<<<<<<< HEAD
     </body>
-</html>
-<script>    
-    $(document).ready(function() {
-        $('#table_id').DataTable();
-        $('#saveGoal').click(function(){
-            alert('ok');
-        });
-    }); 
-</script> 
-=======
-        <script src="/socket.io/socket.io.js"></script>
+</html> 
+        <!-- <script src="/socket.io/socket.io.js"></script> -->
         
         <script>    
         
-            var socket = io('http://localhost/3000');
+            // var socket = io('http://localhost/3000');
 
-            socket.on('sendEntrySystem', function(data){
-                $('#entryInfo').text('');
+            // socket.on('sendEntrySystem', function(data){
+            //     $('#entryInfo').text('');
 
-                var html ="<p>"+ data.login+data.mensagem;+"</p>"
+            //     var html ="<p>"+ data.login+data.mensagem;+"</p>"
                  
-                $('#entryInfo').append(html); 
+            //     $('#entryInfo').append(html); 
                 
-                $('#entryInfo').show(4000);  
-                $('#entryInfo').hide(5000);  
-            });  
+            //     $('#entryInfo').show(4000);  
+            //     $('#entryInfo').hide(5000);  
+            // });  
 
             $(document).ready(function() {
-                $('#entryInfo').hide();
+                // $('#entryInfo').hide();
 
                 $('#table_id').DataTable({
                     order: [[0, 'desc']]
                 });
         
-                $('#saveGoal').click(function(){
+                // $('#saveGoal').click(function(){
                         
-                });
+                // });
 
             // $.ajax({
             //     url: "/components/config/action-send-plano",
@@ -157,4 +147,3 @@
         </script> 
     </body>
 </html> 
->>>>>>> release/1.0.0
