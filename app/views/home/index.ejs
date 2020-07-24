@@ -35,6 +35,27 @@
 	</head>
 
 	<body>
+
+        <div class="modal" tabindex="-1" role="dialog" id="modalNotification">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Título do modal</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Texto do corpo do modal, é aqui.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <a class="navbar-brand" href="#">Logo</a>
         <ul class="navbar-nav">
@@ -59,11 +80,7 @@
             
                     <div class='col-3'>
                         <button type="button" class="btn btn-primary" id="saveGoal" >Salvar</button>
-                    </div>
-                    <div class='col-2'>
-                        <div class="alert alert-info entryInfo" role="alert" id="entryInfo"  >
-                        </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </form> 
@@ -96,7 +113,6 @@
                 <%}%> 
             </tbody>
         </table> 
-
     </body>
 </html> 
         <!-- <script src="/socket.io/socket.io.js"></script> -->
@@ -119,30 +135,25 @@
             $(document).ready(function() {
                 // $('#entryInfo').hide();
 
-                $('#table_id').DataTable({
-                    order: [[0, 'desc']]
-                });
-        
-                // $('#saveGoal').click(function(){
-                        
-                // });
+                $("#saveGoal").click(function(){
 
-            // $.ajax({
-            //     url: "/components/config/action-send-plano",
-            //     data: { field1: 'valor 001##', field2: 'valor 002##' }, 
-            //     type: 'POST',
-            //     contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-            //     processData: false, // NEEDED, DON'T OMIT THIS
-            //     beforeSend: function () {
-            //         $("#" + formName).html(preloaderAzul);
-            //     },
-            //     success: function (response) {
-            //         $("#" + formName).html(response);
-            //     }
-            // });
-
-        
-
+                    var request = $.ajax({
+                        url: "/createGoals",
+                        method: "POST",
+                        data: { name : $("#newGoals").val() },
+                        dataType: "html"
+                    });
+                    request.done(function(msg) { 
+                        console.log(msg);
+                        $('#modalNotification').on('shown.bs.modal', function () {
+                            $("#modalNotification").modal();
+                        });
+                    });
+                    request.fail(function( jqXHR, textStatus ) {
+                        console.log('algo deu errado');
+                    });
+  
+                });        
             }); 
         </script> 
     </body>

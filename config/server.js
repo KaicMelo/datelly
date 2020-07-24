@@ -4,6 +4,9 @@ var express = require('express');
 //IMPORTAR O MODULO FRAMEWORK CONSIGN
 var consign = require('consign');
 
+//IMPORTANDO MODULO AXIOS
+var axios = require('axios');
+
 //IMPORTAR O MODULO FRAMEWORK BODY-PARSE
 var bodyParse = require('body-parser');
 

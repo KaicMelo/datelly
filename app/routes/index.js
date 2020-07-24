@@ -14,14 +14,9 @@ module.exports = function(application){
         goalsModel.getGoals(function(error,result){
             res.send(result);  
           });  
-    });
+    }); 
 
-    application.get('/createGoals',function(req,res){
-        var connection = application.config.dbConnection();
-        var goalsModel = new application.app.models.GoalsDAO(connection);
-        
-        goalsModel.getGoals(function(error,result){
-            res.send(result);  
-          }); 
+    application.post('/createGoals',function(req,res){ 
+        application.app.controllers.goalsController.createGoals(application,req,res);
     });
 }

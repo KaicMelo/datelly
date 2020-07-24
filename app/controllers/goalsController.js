@@ -1,19 +1,21 @@
-module.exports.login = function(application,req,res)
+module.exports.createGoals = function(application,req,res)
 {
-    // var dadosForm = req.body;
+    var goal = req.body;
 
-    // req.assert('apelido','Nome ou apelido é obrigatório').notEmpty();
-    // req.assert('apelido','Nome ou apelido deve conter entre 3 e 15 caracteres').len(3,15);
+    req.assert('titulo','Titulo é obrigatório').notEmpty();
+
+    var connection = application.config.dbConnection();
+    var goalsModel = new application.app.models.GoalsDAO(connection);
+ 
+    goalsModel.goalCreate(goal,function(error,result){
     
-    // var erros = req.validationErrors();
-    
-    // if(erros)
-    // {
-    //     res.render('index',{validation : erros});
-    //     return;
-    // }
-
-    // application.get('io').emit('msgParaCliente',{apelido : dadosForm.apelido, mensagem: " acabou de entrar no chat"}); 
-
-    // res.render('login/index',{validation : ''});
-}
+        if(error != null)
+        {
+            res.status(404).send('Erro ao cadastrar meta');
+            return;
+        } 
+        res.status(201).send('Meta cadastrada com sucesso');
+        return;
+      });   
+} 
+ 
