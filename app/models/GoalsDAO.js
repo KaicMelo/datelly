@@ -8,8 +8,8 @@ GoalsDAO.prototype.getGoals = function(callback){
         'SELECT rg.id,ru.login as rk_user_id,rg.name,rg.concluded,rg.obs,rg.created_at FROM rk_goals rg JOIN rk_users ru ON ru.id = rg.rk_user_id',callback);
 }
 
-GoalsDAO.prototype.goalCreate = function(goal,callback){ 
-    this._connection.query("INSERT INTO rk_goals (rk_user_id,name) VALUES ('2','"+goal.name+"')",callback); 
+GoalsDAO.prototype.goalCreate = function(goal,id,callback){ 
+    this._connection.query("INSERT INTO rk_goals (rk_user_id,name) VALUES ("+id+",'"+goal.name+"')",callback); 
 }
 
 module.exports = function(){     

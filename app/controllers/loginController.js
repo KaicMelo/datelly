@@ -26,6 +26,10 @@ module.exports.authenticate = function(application,req,res)
         { 
             res.render('login/index',{validation : {}}); 
         }else{  
+            req.session.authorized = true;
+            // req.session.id = resultUser;
+            // req.session.user = dadosForm.login;  
+
             var goalsModel = new application.app.models.GoalsDAO(connection);
 
             goalsModel.getGoals(function(error,resultGoals){  
