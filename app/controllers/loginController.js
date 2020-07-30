@@ -25,11 +25,10 @@ module.exports.authenticate = function(application,req,res)
         if(resultUser.length  == 0)
         { 
             res.render('login/index',{validation : {}}); 
-        }else{  
-            // req.session.authorized = true;
-            // req.session.id = resultUser[0].id;
-            // req.session.user = resultUser[0].login;
- 
+        }else{   
+            req.session.authorized = true; 
+            req.session.aut_id = resultUser[0].id; 
+            req.session.authorized =  resultUser[0].login;  
             res.render('home/index');  
 
         }

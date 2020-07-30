@@ -30,12 +30,12 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
             <a class="navbar-brand" href="#">Logo</a>
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Link</a> 
-                </li>
+                </li> -->
             </ul>
         </nav>
 
@@ -104,8 +104,8 @@
                     "order":[0,'desc'],
                     "columns": [
                         { "data": "id" },
-                        { "data": "rk_user_id" },
                         { "data": "name" },
+                        { "data": "rk_user_id" },
                         { 
                             data: 'concluded',
                             render:  data => {
@@ -130,7 +130,7 @@
                     $.ajax({
                         url: "/createGoals",
                         method: "POST",
-                        data: { name : $("#newGoals").val() },
+                        data: { name : $("#newGoals").val().capitalize() },
                         dataType: "html"
                     }).done(function(data) {
                         $('#table_id').DataTable().ajax.reload();
@@ -155,6 +155,10 @@
                     }); 
                 });        
             });
+
+            String.prototype.capitalize = function() {
+                return this.charAt(0).toUpperCase() + this.slice(1);
+            }
 
             function dataAtualFormatada(date){
                 var data = new Date(date),
