@@ -12,6 +12,10 @@ GoalsDAO.prototype.goalCreate = function(goal,id,callback){
     this._connection.query("INSERT INTO rk_goals (rk_user_id,name) VALUES ("+id+",'"+goal.name+"')",callback); 
 }
 
+GoalsDAO.prototype.deleteGoal = function(id,callback){
+    this._connection.query("DELETE FROM rk_goals WHERE id ="+id.id,callback); 
+}
+
 module.exports = function(){     
-    return GoalsDAO;
+    return GoalsDAO; 
 }

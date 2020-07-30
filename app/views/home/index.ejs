@@ -9,17 +9,9 @@
         <link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
         <link rel="stylesheet" href="css/dataTables.min.css">
 
-        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-  
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script> -->
         <script type="text/javascript" charset="utf8" src="js/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" charset="utf8" src="js/bootstrap4.min.js"></script>
         <script type="text/javascript" charset="utf8" src="js/dataTables.min.js"></script>
-
-        <!-- <script src="js/dataTables.min.js"></script>
-        <script src="js/jquery-3.5.1.min.js"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
       </head>
 		<!-- estilo -->
         <!-- <link href="css/style.css" rel="stylesheet"> -->
@@ -35,37 +27,16 @@
 	</head>
 
 	<body>
-
-        <!-- <div class="modal" tabindex="-1" role="dialog" id="modalNotification">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Título do modal</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Texto do corpo do modal, é aqui.</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                  <button type="button" class="btn btn-primary">Salvar mudanças</button>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="#">Logo</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Link</a> 
-            </li>
-        </ul>
+            <a class="navbar-brand" href="#">Logo</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Link</a> 
+                </li>
+            </ul>
         </nav>
 
         <hr>
@@ -83,9 +54,9 @@
                     </div> 
                 </div>
             </div>
-        </form> 
+        </form>
          
-        <table id="table_id"  class="table table-striped table-bordered" style="width:100%">
+        <table id="table_id" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>id</th>
@@ -95,23 +66,17 @@
                     <th>Data Criação</th> 
                     <th>#</th> 
                 </tr>
-            </thead>
-            <tbody>
-                <% for(var i=0; i < goals.length; i++){%>
+            </thead> 
+            <tfoot>
                 <tr>
-                    <td><%=goals[i].id %></td>  
-                    <td><%=goals[i].name %></td>  
-                    <td><%=goals[i].rk_user_id %></td>  
-                    <td><%=goals[i].concluded %></td>  
-                    <td><%=goals[i].created_at %></td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Salvar</button>
-                        <button type="button" class="btn btn-danger">Excluir</button>
-                        <button type="button" class="btn btn-warning">Editar</button>
-                    </td>
-                </tr> 
-                <%}%> 
-            </tbody>
+                    <th>id</th>
+                    <th>Meta</th>
+                    <th>Criada Por</th>
+                    <th>Data Conclusão</th>
+                    <th>Data Criação</th> 
+                    <th>#</th> 
+                </tr>
+            </tfoot>
         </table> 
     </body>
 </html> 
@@ -133,24 +98,49 @@
             // });  
 
             $(document).ready(function() {
-                // $('#entryInfo').hide();
+
+               var table= $('#table_id').DataTable( {
+                    "ajax": "getGoals",
+                    "order":[0,'desc'],
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "rk_user_id" },
+                        { "data": "name" },
+                        { "data": "concluded" },
+                        { "data": "created_at" }, 
+                        { 
+                            data: 'id',
+                            render:  data => '<button type="button" value="'+data+'" class="btn btn-danger">Excluir</button>' 
+                        }, 
+                    ]
+                });
 
                 $("#saveGoal").click(function(){
-                    var request = $.ajax({
+                    $.ajax({
                         url: "/createGoals",
                         method: "POST",
                         data: { name : $("#newGoals").val() },
                         dataType: "html"
-                    });
-                    request.done(function(msg) { 
-                        console.log(msg);
-                        $('#modalNotification').on('shown.bs.modal', function () {
-                            $("#modalNotification").modal();
-                        });
-                    });
-                    request.fail(function( jqXHR, textStatus ) {
+                    }).done(function(data) {
+                        $('#table_id').DataTable().ajax.reload();
+                        $('#newGoals').val(``);
+                    }).fail(function() {
                         console.log('algo deu errado');
-                    });
+                    }); 
+                });
+
+                $("#table_id tbody").on( 'click', 'button', function () {
+                    var dataRow = table.row( $(this).parents('tr') ).data();
+                    
+                    $.ajax({
+                        url: "/deleteGoal", 
+                        method: "POST",
+                        data: {id : dataRow.id} ,
+                        dataType: "text" 
+                    }).done(function(data) { 
+                        $('#table_id').DataTable().ajax.reload();
+                    }).fail(function() { 
+                    }); 
                 });        
             }); 
         </script> 

@@ -30,11 +30,12 @@ module.exports.authenticate = function(application,req,res)
             // req.session.id = resultUser;
             // req.session.user = dadosForm.login;  
 
-            var goalsModel = new application.app.models.GoalsDAO(connection);
+            // var goalsModel = new application.app.models.GoalsDAO(connection);
 
-            goalsModel.getGoals(function(error,resultGoals){  
-                res.render('home/index',{goals: resultGoals});  
-            });
+            // goalsModel.getGoals(function(error,resultGoals){  
+                // res.render('home/index',{goals: resultGoals});  
+                res.render('home/index');  
+            // });
         }
     });
 }

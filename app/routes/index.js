@@ -12,11 +12,15 @@ module.exports = function(application){
         var goalsModel = new application.app.models.GoalsDAO(connection);
         
         goalsModel.getGoals(function(error,result){
-            res.send(result);  
+            res.send({data:result});  
           });  
     }); 
 
     application.post('/createGoals',function(req,res){ 
         application.app.controllers.goalsController.createGoals(application,req,res);
+    });
+
+    application.post('/deleteGoal',function(req,res){ 
+        application.app.controllers.goalsController.deleteGoal(application,req,res);
     });
 }
