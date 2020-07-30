@@ -7,6 +7,9 @@ module.exports.createGoals = function(application,req,res)
     var connection = application.config.dbConnection();
     var goalsModel = new application.app.models.GoalsDAO(connection);
     var id = 2;
+    // console.log(req.session.authorized) ;
+    // console.log(req.session.id) ; 
+    // return ;
     goalsModel.goalCreate(goal,id,function(error,result){
         if(error != null)
         {

@@ -26,16 +26,12 @@ module.exports.authenticate = function(application,req,res)
         { 
             res.render('login/index',{validation : {}}); 
         }else{  
-            req.session.authorized = true;
-            // req.session.id = resultUser;
-            // req.session.user = dadosForm.login;  
+            // req.session.authorized = true;
+            // req.session.id = resultUser[0].id;
+            // req.session.user = resultUser[0].login;
+ 
+            res.render('home/index');  
 
-            // var goalsModel = new application.app.models.GoalsDAO(connection);
-
-            // goalsModel.getGoals(function(error,resultGoals){  
-                // res.render('home/index',{goals: resultGoals});  
-                res.render('home/index');  
-            // });
         }
     });
 }
