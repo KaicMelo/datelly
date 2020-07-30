@@ -106,8 +106,19 @@
                         { "data": "id" },
                         { "data": "rk_user_id" },
                         { "data": "name" },
-                        { "data": "concluded" },
-                        { "data": "created_at" }, 
+                        { 
+                            data: 'concluded',
+                            render:  data => {
+                                if(data != null)
+                                {
+                                   return dataAtualFormatada(data);
+                                }else{return null}
+                            }
+                        }, 
+                        { 
+                            data: 'created_at',
+                            render:  data => dataAtualFormatada(data) 
+                        }, 
                         { 
                             data: 'id',
                             render:  data => '<button type="button" value="'+data+'" class="btn btn-danger">Excluir</button>' 
@@ -140,9 +151,21 @@
                     }).done(function(data) { 
                         $('#table_id').DataTable().ajax.reload();
                     }).fail(function() { 
+                        console.log('Erro ao deletar meta');
                     }); 
                 });        
-            }); 
+            });
+
+            function dataAtualFormatada(date){
+                var data = new Date(date),
+                    dia  = data.getDate().toString(),
+                    diaF = (dia.length == 1) ? '0'+dia : dia,
+                    mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+                    mesF = (mes.length == 1) ? '0'+mes : mes,
+                    anoF = data.getFullYear();
+                return diaF+"/"+mesF+"/"+anoF;
+            }
+
         </script> 
     </body>
 </html> 
