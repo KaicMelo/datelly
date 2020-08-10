@@ -1,29 +1,49 @@
-module.exports.login = function(application,req,res)
+module.exports.createGoals = function(application,req,res)
 {
-    // var dadosForm = req.body;
+    var goal = req.body;
 
-    // req.assert('apelido','Nome ou apelido é obrigatório').notEmpty();
-    // req.assert('apelido','Nome ou apelido deve conter entre 3 e 15 caracteres').len(3,15);
-    
-    // var erros = req.validationErrors();
-    
-    // if(erros)
-    // {
-    //     res.render('index',{validation : erros});
-    //     return;
-    // }
+    req.assert('titulo','Titulo é obrigatório').notEmpty();
 
-    // application.get('io').emit('msgParaCliente',{apelido : dadosForm.apelido, mensagem: " acabou de entrar no chat"}); 
-
-    res.render('login/index');
-}
-
-module.exports.authenticate = function(application,req,res)
-{
     var connection = application.config.dbConnection();
     var goalsModel = new application.app.models.GoalsDAO(connection);
-    
-    goalsModel.getGoals(function(error,result){
-        res.render('home/index',{goals: result});  
-      });  
+    var id = req.session.aut_id;
+
+    goalsModel.goalCreate(goal,id,function(error,result){
+        if(error != null)
+        {
+            res.status(404).send('Erro ao cadastrar meta');
+            return;
+        } 
+        res.status(201).send('Meta cadastrada com sucesso');
+        return;
+      });   
+};
+
+module.exports.deleteGoal = function(application,req,res)
+{
+    var id = req.body; 
+
+    var connection = application.config.dbConnection();
+    var goalsModel = new application.app.models.GoalsDAO(connection);
+ 
+    goalsModel.deleteGoal(id,function(error,result){  
+        if(error != null)
+        {
+            res.status(404).send('Erro deletar meta');
+            return;
+        } 
+        res.status(201).send('Meta deletada com sucesso');
+        return;
+    });
 }
+module.exports.goals = function(application,req,res)
+{
+    if(req.session.authorized == true)
+    {
+        res.render('home/index');
+        return;
+    }
+    res.json({message: "Você não tem permissão"});
+    return;
+}
+ 
