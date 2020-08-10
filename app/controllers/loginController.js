@@ -20,16 +20,15 @@ module.exports.authenticate = function(application,req,res)
     var connection = application.config.dbConnection();
     var usersModel = new application.app.models.UsersDAO(connection);
     // application.get('io').emit('sendEntrySystem',{login : dadosForm.login, mensagem: " entrou"}); 
-    
-    usersModel.authenticate(dadosForm,function(error,resultUser){ 
+    usersModel.authenticate(dadosForm,function(error,resultUser){
         if(resultUser.length  == 0)
         { 
-            res.render('login/index',{validation : {}}); 
+            res.status(404).json({message: 'Erro ao realizar login'});  
         }else{   
             req.session.authorized = true; 
             req.session.aut_id = resultUser[0].id; 
-            req.session.authorized =  resultUser[0].login;  
-            res.render('home/index');  
+            // req.session.authorized =  resultUser[0].login; 
+            res.status(200).json({message: 'Login realizado com sucesso'});
 
         }
     });

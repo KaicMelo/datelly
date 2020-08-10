@@ -36,4 +36,14 @@ module.exports.deleteGoal = function(application,req,res)
         return;
     });
 }
+module.exports.goals = function(application,req,res)
+{
+    if(req.session.authorized == true)
+    {
+        res.render('home/index');
+        return;
+    }
+    res.json({message: "Você não tem permissão"});
+    return;
+}
  
