@@ -100,7 +100,7 @@
             $(document).ready(function() {
 
                var table= $('#table_id').DataTable( {
-                    "ajax": "getGoals",
+                    "ajax": "goals",
                     "order":[0,'desc'],
                     "columns": [
                         { "data": "id" },
@@ -128,7 +128,7 @@
 
                 $("#saveGoal").click(function(){
                     $.ajax({
-                        url: "/createGoals",
+                        url: "/goals",
                         method: "POST",
                         data: { name : $("#newGoals").val().capitalize() },
                         dataType: "html"
@@ -144,8 +144,8 @@
                     var dataRow = table.row( $(this).parents('tr') ).data();
                     
                     $.ajax({
-                        url: "/deleteGoal", 
-                        method: "POST",
+                        url: "/goals", 
+                        method: "DELETE",
                         data: {id : dataRow.id} ,
                         dataType: "text" 
                     }).done(function(data) { 

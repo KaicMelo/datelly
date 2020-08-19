@@ -1,2 +1,2 @@
 /node_modules
-/config/dbConnection.js
+/src/config/dbConnection.js

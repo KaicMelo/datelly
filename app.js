@@ -1,5 +1,5 @@
 //IMPORTAR AS CONFIGURAÇÕES DO SERVIDOR
-var app = require('./config/server');
+var app = require('./src/config/server');
 
 //PARAMETRIZAR AS PORTAS QUE SERÃO ESCUTADAS
 var server = app.listen(3000,function(){
