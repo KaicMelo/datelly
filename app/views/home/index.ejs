@@ -21,63 +21,65 @@
                 position: absolute; 
                 width: 70%;
             }
+            /* body{
+                background-image: url('images/tribal.jpg');
+            } */
         </style>
 
         </style>
 	</head>
 
 	<body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="#">Logo</a>
-            <ul class="navbar-nav">
-                <!-- <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Link</a> 
-                </li> -->
-            </ul>
-        </nav>
-
-        <hr>
-
-        <form id="formInsert">
-            <div class="form-group">
-                <label for="newGoals">Nova Meta</label>
-                <div class='row'>
-                    <div class='col-6'>
-                        <input type="text" class="form-control" id="newGoals" aria-describedby="emailHelp" placeholder="Insira uma nova meta">
-                    </div>
-            
-                    <div class='col-3'>
-                        <button type="button" class="btn btn-primary" id="saveGoal" >Salvar</button>
-                    </div> 
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-4">je t'aime</h1>
+                  <p class="lead">Les nouveaux objectifs sont les bienvenus.</p>
                 </div>
-            </div>
-        </form>
-         
-        <table id="table_id" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Meta</th>
-                    <th>Criada Por</th>
-                    <th>Data Conclusão</th>
-                    <th>Data Criação</th> 
-                    <th>#</th> 
-                </tr>
-            </thead> 
-            <tfoot>
-                <tr>
-                    <th>id</th>
-                    <th>Meta</th>
-                    <th>Criada Por</th>
-                    <th>Data Conclusão</th>
-                    <th>Data Criação</th> 
-                    <th>#</th> 
-                </tr>
-            </tfoot>
-        </table> 
+              </div>
+            <form id="formInsert">
+                <div class="form-group">
+                    <label for="newGoals">Nova Meta</label>
+                    <div class='row'>
+                        <div class="input-group col-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">#</span>
+                              </div>
+                            <input type="text" class="form-control" id="newGoals" placeholder="Insira uma nova meta" aria-label="Insira uma nova meta" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="saveGoal" >Salvar</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </form>
+            
+            <hr />
+
+            <!-- <table id="table_id" class="table table-striped table-bordered" style="width:100%"> -->
+            <table id="table_id">
+                <thead style="background-color: #e9ecef">
+                    <tr>
+                        <th>id</th>
+                        <th>Meta</th>
+                        <th>Criada Por</th>
+                        <th>Data Conclusão</th>
+                        <th>Data Criação</th> 
+                        <th>#</th> 
+                    </tr>
+                </thead> 
+                <!-- <tfoot>
+                    <tr>
+                        <th>id</th>
+                        <th>Meta</th>
+                        <th>Criada Por</th>
+                        <th>Data Conclusão</th>
+                        <th>Data Criação</th> 
+                        <th>#</th> 
+                    </tr>
+                </tfoot> -->
+            </table> 
+        </div>
     </body>
 </html> 
         <!-- <script src="/socket.io/socket.io.js"></script> -->
@@ -99,7 +101,10 @@
 
             $(document).ready(function() {
 
-               var table= $('#table_id').DataTable( {
+                    var table= $('#table_id').DataTable( {
+                        "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"
+                    },
                     "ajax": "getGoals",
                     "order":[0,'desc'],
                     "columns": [
@@ -121,7 +126,9 @@
                         }, 
                         { 
                             data: 'id',
-                            render:  data => '<button type="button" value="'+data+'" class="btn btn-danger">Excluir</button>' 
+                            render:  data => `<button type="button" value="'+data+'" class="btn"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+</svg></button>`
                         }, 
                     ]
                 });
@@ -143,16 +150,16 @@
                 $("#table_id tbody").on( 'click', 'button', function () {
                     var dataRow = table.row( $(this).parents('tr') ).data();
                     
-                    $.ajax({
-                        url: "/deleteGoal", 
-                        method: "POST",
-                        data: {id : dataRow.id} ,
-                        dataType: "text" 
-                    }).done(function(data) { 
-                        $('#table_id').DataTable().ajax.reload();
-                    }).fail(function() { 
-                        console.log('Erro ao deletar meta');
-                    }); 
+                    // $.ajax({
+                    //     url: "/deleteGoal", 
+                    //     method: "POST",
+                    //     data: {id : dataRow.id} ,
+                    //     dataType: "text" 
+                    // }).done(function(data) { 
+                    //     $('#table_id').DataTable().ajax.reload();
+                    // }).fail(function() { 
+                    //     console.log('Erro ao deletar meta');
+                    // }); 
                 });        
             });
 
