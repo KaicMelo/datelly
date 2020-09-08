@@ -19,6 +19,24 @@ module.exports.createGoals = function(application,req,res)
       });   
 };
 
+module.exports.updateGoals = function(application,req,res)
+{
+    var goal = req.body;
+
+    var connection = application.config.dbConnection();
+    var goalsModel = new application.app.models.GoalsDAO(connection);
+
+    goalsModel.goalUpdate(goal,function(error,result){
+        if(error != null)
+        {
+            res.status(404).send('Erro ao atualizar meta');
+            return;
+        } 
+        res.status(200).send('Meta atualizada com sucesso');
+        return;
+      });   
+};
+
 module.exports.deleteGoal = function(application,req,res)
 {
     var id = req.body; 

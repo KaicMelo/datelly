@@ -11,6 +11,11 @@ module.exports = function(application){
     application.get('/goals',function(req,res){
         application.app.controllers.goalsController.goals(application,req,res);
     });
+
+    application.post('/updateGoals',function(req,res){
+        application.app.controllers.goalsController.updateGoals(application,req,res);
+    });
+
     application.post('/createGoals',function(req,res){ 
         application.app.controllers.goalsController.createGoals(application,req,res);
     });

@@ -12,6 +12,15 @@ GoalsDAO.prototype.goalCreate = function(goal,id,callback){
     this._connection.query("INSERT INTO rk_goals (rk_user_id,name) VALUES ("+id+",'"+goal.name+"')",callback); 
 }
 
+GoalsDAO.prototype.goalUpdate = function(goal,callback){
+    if(goal.concluded == '')
+    {
+        this._connection.query("UPDATE rk_goals SET obs ='"+goal.obs+"' , concluded=NULL WHERE id ="+goal.id,callback); 
+    }else{
+        this._connection.query("UPDATE rk_goals SET obs ='"+goal.obs+"' , concluded='"+goal.concluded+"' WHERE id ="+goal.id,callback); 
+    }
+}
+
 GoalsDAO.prototype.deleteGoal = function(id,callback){
     // this._connection.query("DELETE FROM rk_goals WHERE id ="+id.id,callback); 
     this._connection.query("UPDATE rk_goals SET status = 0 WHERE id ="+id.id,callback); 
