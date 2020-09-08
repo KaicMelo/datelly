@@ -13,6 +13,9 @@ var expressValidator = require('express-validator');
 //IMPORTAR O MODULO FRAMEWORK EXPRESS-SESSION
 var expressSession = require('express-session');
 
+//IMPORTAR MOMENTO PARA FORMATAR DATA
+var moment = require('moment');
+
 //INICIAR O OBJETO EXPRESS
 var app = express();
 
