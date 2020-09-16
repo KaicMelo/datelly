@@ -22,5 +22,8 @@
     "express-validator": "^3.2.0",
     "mysql": "^2.18.1",
     "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
   }
 }

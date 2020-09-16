@@ -17,11 +17,11 @@ var expressSession = require('express-session');
 var app = express();
 
 //SETAR AS VARIAVEIS DE VIEW DO EXPRESS
-app.set('view engine','ejs');
-app.set('views','./app/views');
+// app.set('view engine','ejs');
+// app.set('views','./app/views');
 
 //CONFIGURAR O MIDDLEWARE EXPRESS.STATIC
-app.use(express.static('./app/public'));
+app.use(express.static('./public'));
 
 //CONFIGURAR O MIDDLEWARE BODY-PARSE
 app.use(bodyParse.urlencoded({extended:true}));
@@ -36,13 +36,15 @@ app.use(expressSession({
     saveUninitialized: false,
 }));
 
+app.use(express.static('./public'));
+app.use(express.static('./routes'));
 //EFETUAR O AUTOLOAD DAS ROTAS,MIDDLEWARE,CONTROLLERS QUANDO O OBJETO APP FOR CRIADO
-consign().
-    include('app/routes')
-    .then('app/models')
-    .then('app/controllers')
-    .then('config/dbConnection.js')
-    .into(app);
+// consign().
+//     include('app/routes')
+//     .then('app/models')
+//     .then('app/controllers')
+//     .then('config/dbConnection.js')
+//     .into(app);
 
 //EXPORTAR O OBJETO APP
 module.exports = app;
