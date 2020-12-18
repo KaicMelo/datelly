@@ -17,11 +17,11 @@ var expressSession = require('express-session');
 var app = express();
 
 //SETAR AS VARIAVEIS DE VIEW DO EXPRESS
-app.set('view engine','ejs');
-app.set('views','./web/views');
+// app.set('view engine','ejs');
+// app.set('views','./app/views');
 
 //CONFIGURAR O MIDDLEWARE EXPRESS.STATIC
-app.use(express.static('./src/public'));
+app.use(express.static('./public'));
 
 //CONFIGURAR O MIDDLEWARE BODY-PARSE
 app.use(bodyParse.urlencoded({extended:true}));
