@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
 
     <title>Datelly - Cadastro</title>
-    <link href="../css/Create/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/bootstrap-4.5.2.min.css">
+    <!-- <link href="../css/Create/style.css" rel="stylesheet">  -->
+    <link rel="stylesheet" href="css/dataTables.min.css">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2.min.css">
 
 </head>
 <style>
-    body,h1,p,.form-control,.buttonRegister{ 
+    /* body,h1,p,.form-control,.buttonRegister{ 
         font-size: 2.5rem;
         height: 5rem;
-    } 
+    }  */
 </style>
 </head>
 
@@ -21,24 +22,37 @@
     <div class="container">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 >Cadastro</h1>
-                <p >Realize seu cadastro</p>
+                <h1>Cadastro</h1>
+                <p>Realize seu cadastro</p>
             </div>
         </div>
         <form id="register">
-            <div class="form-group">
-                <label for="inputLogin">login</label>
-                <input type="text" class="form-control" id="inputLogin" aria-describedby="Campo de login"
-                    placeholder="Digite seu login" required>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="inputNome">Nome *</label>
+                    <input type="text" class="form-control" id="inputNome" aria-describedby="Campo de Nome"
+                        placeholder="Digite seu Nome" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="inputLogin">login *</label>
+                    <input type="text" class="form-control" id="inputLogin" aria-describedby="Campo de login"
+                        placeholder="Digite seu login de acesso" required>
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Digite seu email" required>
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                    placeholder="Digite seu email">
             </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+            <div class="row">
+                <div class="form-group col-8">
+                    <label for="inputPassword">Password *</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Senha" required>
+                </div>
+                <div class="form-group col-4">
+                    <label for="inputCrush">id do(a) Crush</label>
+                    <input type="text" class="form-control" id="inputCrush" placeholder="Insira o ID" >
+                </div>
             </div>
             <button type="submit" class="btn btn-primary buttonRegister">Cadastrar</button>
         </form>

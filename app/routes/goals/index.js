@@ -3,9 +3,10 @@ module.exports = function(application){
         var connection = application.config.dbConnection();
         var goalsModel = new application.app.models.GoalsDAO(connection);
         
-        goalsModel.getGoals(function(error,result){
+        var id = req.session.aut_id;
+        goalsModel.getGoals(id,function(error,result){
             res.send({data:result});  
-          });  
+          }); 
     }); 
 
     application.get('/goals',function(req,res){

@@ -1,14 +1,17 @@
-module.exports.createGoals = function(application,req,res)
+module.exports.index = function(application,req,res)
 {
-    var goal = req.body;
+    res.render('account/index');
+};
 
-    req.assert('titulo','Titulo é obrigatório').notEmpty();
-
+module.exports.create = function(application,req,res)
+{
+    var register = req.body;
+    
     var connection = application.config.dbConnection();
-    var goalsModel = new application.app.models.GoalsDAO(connection);
+    var accountModel = new application.app.models.AccountDAO(connection);
     var id = req.session.aut_id;
-
-    goalsModel.goalCreate(goal,id,function(error,result){
+    
+    accountModel.accountCreate(register,id,function(error,result){
         if(error != null)
         {
             res.status(404).send('Erro ao cadastrar meta');
@@ -59,19 +62,6 @@ module.exports.goals = function(application,req,res)
     if(req.session.authorized == true)
     {
         res.render('home/index');
-        return;
-    }
-    res.json({message: "Você não tem permissão"});
-    return;
-}
-
-module.exports.create = function(application,req,res)
-{
-    res.render('account/index');
-        return;
-    if(req.session.authorized == true)
-    {
-        res.render('account/index');
         return;
     }
     res.json({message: "Você não tem permissão"});
