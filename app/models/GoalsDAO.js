@@ -3,10 +3,15 @@ function GoalsDAO(connection)
 {
     this._connection = connection;
 }
-GoalsDAO.prototype.getGoals = function(id,callback){
+GoalsDAO.prototype.getMyGoals = function(id,callback){
      
     this._connection.query(
         'SELECT rg.id,ru.login as rk_user_id,rg.name,DATE_FORMAT(rg.concluded,"%Y-%m-%d") as concluded,rg.obs,DATE_FORMAT(rg.created_at,"%Y-%m-%d") as created_at FROM rk_goals rg JOIN rk_users ru ON ru.id = rg.rk_user_id WHERE status = 1 and rg.rk_user_id ='+id,callback);
+}
+GoalsDAO.prototype.getGoalsWithGirlfried = function(id,callback){
+     
+    this._connection.query(
+        'SELECT rg.id,ru.login as rk_user_id,rg.name,DATE_FORMAT(rg.concluded,"%Y-%m-%d") as concluded,rg.obs,DATE_FORMAT(rg.created_at,"%Y-%m-%d") as created_at FROM rk_goals rg JOIN rk_users ru ON ru.id = rg.rk_user_id WHERE status = 1 and rg.rk_user_id in('+id+')',callback);
 }
 
 GoalsDAO.prototype.goalCreate = function(goal,id,callback){ 
