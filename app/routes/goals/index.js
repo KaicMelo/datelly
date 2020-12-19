@@ -18,9 +18,9 @@ module.exports = function (application) {
 
                 for (var i in resp) {
                     val = resp[i];
+                    ids.push(val.rk_user_id);
                     ids.push(val.rk_girlfriend_id);
                 }
-                ids.push(id);
 
                 goalsModel.getGoalsWithGirlfried(ids, function (error, result) {
                     res.send({ data: result });
