@@ -7,7 +7,7 @@ $(document).ready(function() {
         "ajax": "getGoals",
         "order":[0,'desc'],
         "columns": [
-            { "data": "id" },
+            // { "data": "id" },
             { "data": "name" },
             { "data": "rk_user_id" },
             { 

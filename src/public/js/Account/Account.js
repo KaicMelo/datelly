@@ -1,24 +1,30 @@
- 
-
 $("#register").on('submit',function(event){
     event.preventDefault();
 
+    const formData = {
+        "rk_girlfriend_id":$("#inputCrush").val(),
+        "name":$("#inputNome").val(),
+        "email":$("#inputEmail").val(),
+        "login":$("#inputLogin").val(),
+        "password":$("#inputPassword").val(),
+    }
 
-    // $.ajax({
-    //     url: "/cre",
-    //     method: "POST",
-    //     data: { name : $("#newGoals").val().capitalize() },
-    //     dataType: "html"
-    // }).done(function(data) {
-    //     swal({
-    //         title: "Meta cadastrada!",
-    //         text: "Uhull!",
-    //         icon: "success",
-    //         button: "Continuar",
-    //     });
-    //     $('#table_id').DataTable().ajax.reload();
-    //     $('#newGoals').val(``);
-    // }).fail(function() {
-    //     console.log('algo deu errado');
-    // });  
+    $.ajax({
+        url: "/account/create",
+        method: "POST",
+        data: formData ,
+    }).done(function(data) {
+        console.log(data)
+        swal({
+            title: "Meta cadastrada!",
+            text: "Uhull!",
+            icon: "success",
+            button: "Continuar",
+        }).then( () => {
+            window.location.href = '/';
+        })
+
+    }).fail(function() {
+        console.log('algo deu errado');
+    });  
 })
