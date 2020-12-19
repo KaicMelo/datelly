@@ -86,25 +86,6 @@
             // $('#alertLogin').removeClass('hidden');
 
         });
-<<<<<<< HEAD:web/views/login/index.ejs
-            $("#form-signin").submit(function(event){
-                event.preventDefault();
-                $.ajax({
-                    url: "/authenticate", 
-                    method: "POST",
-                    data: {
-                        login : $("#inputLogin").val(),
-                        password : $("#inputPassword").val(),
-                    },    
-                    dataType: "json" 
-                }).done(function(data) { 
-                    // $('#table_id').DataTable().ajax.reload();
-                    window.location.href = "/view-goals";
-                    return
-                }).fail(function(data) { 
-                    document.getElementById('alertLogin').style.visibility = 'visible';
-                }); 
-=======
         $("#form-signin").submit(function (event) {
             event.preventDefault();
             $.ajax({
@@ -121,7 +102,6 @@
                 return
             }).fail(function (data) {
                 document.getElementById('alertLogin').style.visibility = 'visible';
->>>>>>> master:app/views/login/index.ejs
             });
         });
 

@@ -76,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `rk_users` (
   `name` varchar(100) NOT NULL,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `rk_girlfriend_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
