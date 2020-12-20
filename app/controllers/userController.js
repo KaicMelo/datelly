@@ -41,13 +41,22 @@ module.exports.userUpdate = function (application, req, res) {
             usersModel.userUpdate(data, id, function (error, result) {
 
                 if (result.affectedRows == 1) {
+                    // var notificationModel = new application.app.models.NotificationDAO(connection);
+
+                    // notificationModel.insertNotification(result.insertId,register.rk_girlfriend_id,function(notificationError,notificationResult){
+                    //     console.log(notificationResult)
+                    //     return;
+                    // });
+                    // console.log('teste');
+                    // return;
+
                     res.status(200).send({data:result});
                 } else {
                     res.status(404).send('Error');
                 }
             });
         } else {
-            data.rk_girlfriend_id = '';
+            
             usersModel.userUpdate(data, id, function (error, result) {
                 if (result.length > 0) {
                     res.status(200).send({data:result});

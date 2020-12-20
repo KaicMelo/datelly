@@ -27,12 +27,17 @@ module.exports.create = function (application, req, res) {
                 register.rk_girlfriend_id = userResult[0].id;
 
                 accountModel.accountCreate(register, id, function (error, result) {
-                    if (error != null) {
-                        res.status(404).send('Erro ao cadastrar meta');
-                        return;
+                    if (result.affectedRows == 1) {
+                    
+                        var notificationModel = new application.app.models.NotificationDAO(connection);
+
+                        notificationModel.insertNotification(result.insertId,register.rk_girlfriend_id,function(notificationError,notificationResult){
+                            console.log(notificationResult)
+                            return;
+                        });
+                        return res.status(404).send('Erro ao cadastrar meta');
                     }
-                    res.status(201).send('Meta cadastrada com sucesso');
-                    return;
+                    return res.status(201).send('Meta cadastrada com sucesso'); 
                 });
             }
         });

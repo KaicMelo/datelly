@@ -13,6 +13,11 @@ UsersDAO.prototype.myLove = function (id, result) {
     this._connection.query("SELECT * FROM rk_notification WHERE (rk_user_id = "+id+" OR rk_girlfriend_id = "+id+")", result);
 }
 
+UsersDAO.prototype.insertNotification = function (myId,otherId, result) {
+
+    this._connection.query("INSERT INTO `rk_notification` (`rk_user_id`, `rk_girlfriend_id`) VALUES ('"+myId+"', '"+otherId+"')", result);
+}
+
 module.exports = function () {
     return UsersDAO;
 }
