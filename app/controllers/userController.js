@@ -33,10 +33,6 @@ module.exports.userUpdate = function (application, req, res) {
     var usersModel = new application.app.models.UsersDAO(connection);
     var session_id = req.session.aut_id;
 
-    if (data.password == '') {
-        delete data.password;
-    }
-
     usersModel.getToken(data.rk_girlfriend_id, function (error, userResult) {
         
         if (userResult.length > 0 && data.rk_girlfriend_id.length > 8 ) {
