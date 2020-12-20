@@ -16,7 +16,3 @@ Passo a passo para rodar o projeto
 
 ## Navegador
 http://localhost:3000
-
-## User
-
-Login: user password: @user_
