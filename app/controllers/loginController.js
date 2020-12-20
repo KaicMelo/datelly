@@ -27,6 +27,7 @@ module.exports.authenticate = function(application,req,res)
         }else{   
             req.session.authorized = true; 
             req.session.aut_id = resultUser[0].id; 
+            req.session.token_id = resultUser[0].token_id; 
             // req.session.authorized =  resultUser[0].login; 
             res.status(200).json({message: 'Login realizado com sucesso'});
 

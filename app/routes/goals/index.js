@@ -1,32 +1,6 @@
 module.exports = function (application) {
     application.get('/getGoals', function (req, res) {
-        var connection = application.config.dbConnection();
-        var goalsModel = new application.app.models.GoalsDAO(connection);
-        var notificationModel = new application.app.models.NotificationDAO(connection);
-
-        var id = req.session.aut_id;
-
-        notificationModel.getMyNotification(id, function (error, result) {
-            var resp = result;
-            
-            if(resp.length == 0){
-                goalsModel.getMyGoals(id, function (error, result) {
-                    res.send({ data: result });
-                });
-            }else{
-                var ids = [];
-
-                for (var i in resp) {
-                    val = resp[i];
-                    ids.push(val.rk_user_id);
-                    ids.push(val.rk_girlfriend_id);
-                }
-
-                goalsModel.getGoalsWithGirlfried(ids, function (error, result) {
-                    res.send({ data: result });
-                });
-            }
-        });
+        application.app.controllers.goalsController.getGoals(application, req, res);
     });
 
     application.get('/goals', function (req, res) {

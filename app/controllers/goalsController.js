@@ -1,3 +1,14 @@
+module.exports.goals = function(application,req,res)
+{
+    if(req.session.authorized == true)
+    {
+        res.render('home/index');
+        return;
+    }
+    res.render('login/index');
+    return;
+}
+
 module.exports.createGoals = function(application,req,res)
 {
     var goal = req.body;
@@ -18,6 +29,37 @@ module.exports.createGoals = function(application,req,res)
         return;
       });   
 };
+
+module.exports.getGoals = function(application,req,res)
+{
+    var connection = application.config.dbConnection();
+    var goalsModel = new application.app.models.GoalsDAO(connection);
+    var notificationModel = new application.app.models.NotificationDAO(connection);
+
+    var id = req.session.aut_id;
+
+    notificationModel.getMyNotification(id, function (error, result) {
+        var resp = result;
+        
+        if(resp.length == 0){
+            goalsModel.getMyGoals(id, function (error, result) {
+                res.send({ data: result });
+            });
+        }else{
+            var ids = [];
+
+            for (var i in resp) {
+                val = resp[i];
+                ids.push(val.rk_user_id);
+                ids.push(val.rk_girlfriend_id);
+            }
+
+            goalsModel.getGoalsWithGirlfried(ids, function (error, result) {
+                res.send({ data: result });
+            });
+        }
+    });
+}
 
 module.exports.updateGoals = function(application,req,res)
 {
@@ -53,15 +95,5 @@ module.exports.deleteGoal = function(application,req,res)
         res.status(201).send('Meta deletada com sucesso');
         return;
     });
-}
-module.exports.goals = function(application,req,res)
-{
-    if(req.session.authorized == true)
-    {
-        res.render('home/index');
-        return;
-    }
-    res.json({message: "Você não tem permissão"});
-    return;
 }
  

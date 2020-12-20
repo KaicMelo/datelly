@@ -14,7 +14,6 @@ $("#register").on('submit',function(event){
         method: "POST",
         data: formData ,
     }).done(function(data) {
-        console.log(data)
         swal({
             title: "Meta cadastrada!",
             text: "Uhull!",

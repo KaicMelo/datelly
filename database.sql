@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `rk_notification` (
 
 CREATE TABLE IF NOT EXISTS `rk_users` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `token_id` varchar(45) NOT NULL,
   `rk_girlfriend_id` varchar(45) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
