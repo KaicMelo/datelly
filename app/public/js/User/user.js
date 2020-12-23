@@ -17,6 +17,7 @@ $(function(){
         event.preventDefault();
     
         const formData = {
+            "id":$("#user_id").val(),
             "rk_girlfriend_id":$("#inputCrush").val(),
             "name":$("#inputNome").val(),
             "email":$("#inputEmail").val(),

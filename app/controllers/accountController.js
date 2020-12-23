@@ -7,8 +7,7 @@ module.exports.create = function (application, req, res) {
 
     var connection = application.config.dbConnection();
     var accountModel = new application.app.models.AccountDAO(connection);
-    var id = req.session.aut_id;
-    var userLove = [];
+    var notificationModel = new application.app.models.NotificationDAO(connection);
 
     var name = register.name.split(' ');
     if (name.length > 1) {
@@ -26,16 +25,10 @@ module.exports.create = function (application, req, res) {
 
                 register.rk_girlfriend_id = userResult[0].id;
 
-                accountModel.accountCreate(register, id, function (error, result) {
+                accountModel.accountCreate(register, function (error, result) {
                     if (result.affectedRows == 1) {
-                    
-                        var notificationModel = new application.app.models.NotificationDAO(connection);
-
                         notificationModel.insertNotification(result.insertId,register.rk_girlfriend_id,function(notificationError,notificationResult){
-                            console.log(notificationResult)
-                            return;
                         });
-                        return res.status(404).send('Erro ao cadastrar meta');
                     }
                     return res.status(201).send('Meta cadastrada com sucesso'); 
                 });
