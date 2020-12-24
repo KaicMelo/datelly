@@ -32,6 +32,18 @@ UsersDAO.prototype.userUpdate = function (data, id, result) {
             "UPDATE rk_users SET rk_girlfriend_id ='" + data.rk_girlfriend_id + "',name='" + data.name + "',login='" + data.login + "',email='" + data.email + "',password='" + password + "' WHERE id =" + id + "", result);
     }
 }
+UsersDAO.prototype.updateGirlfriend = function (user, girlfiend, result) {
+  
+    this._connection.query(
+        "UPDATE rk_users SET rk_girlfriend_id ='" +user + "' WHERE id =" + girlfiend + "", result);
+    
+}
+
+UsersDAO.prototype.deleteGirlfriend = function (user, girlfiend, result) {
+  
+    this._connection.query(
+        "UPDATE rk_users SET rk_girlfriend_id = NULL WHERE id =" + user + " OR id ="+girlfiend+"", result);
+}
 
 module.exports = function () {
     return UsersDAO;

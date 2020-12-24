@@ -38,7 +38,7 @@ module.exports.create = function (application, req, res) {
     }
     register.rk_girlfriend_id = '';
 
-    accountModel.accountCreate(register, id, function (error, result) {
+    accountModel.accountCreate(register,function (error, result) { 
         if (error != null) {
             res.status(404).send('Erro ao cadastrar meta');
             return;
