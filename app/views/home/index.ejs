@@ -4,11 +4,12 @@
 		<meta charset="UTF-8">
 
         <title>Datelly - Home</title> 
-         
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
         <link rel="stylesheet" href="css/bootstrap-4.5.2.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
-
+        <link href="css/Home/style.css" rel="stylesheet">
+        
       </head>
         <style>
             .entryInfo{
@@ -147,6 +148,7 @@
             </div>
         </footer>
 
+        
         <script type="text/javascript" charset="utf8" src="js/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
@@ -160,6 +162,16 @@
         <script type="text/javascript" charset="utf8" src="js/bootstrap-4.5.2.min.js"></script>
         <script type="text/javascript" charset="utf8" src="js/moment-2.27.0.min.js"></script>
         <script type="text/javascript" charset="utf8" src="js/sweetalert-2.1.2.js"></script>
-        <script type="text/javascript" charset="utf8" src="js/Home/home.js"></script>
+        <!-- <script type="text/javascript" charset="utf8" src="js/Home/home.js"></script>s -->
+
+        <script type="text/javascript">
+            var socket = io('http://localhost:3000')
+            
+            $("#saveGoal").on('click',function () {
+                socket.emit('sendMessage',{name:'Kaic'});
+            })
+        </script>
+
+
     </body>
 </html>

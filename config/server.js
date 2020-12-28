@@ -16,6 +16,8 @@ var expressSession = require('express-session');
 //INICIAR O OBJETO EXPRESS
 var app = express();
 
+var server = require('http').createServer(app);
+
 //SETAR AS VARIAVEIS DE VIEW DO EXPRESS
 app.set('view engine','ejs');
 app.set('views','./app/views');
@@ -45,4 +47,4 @@ consign().
     .into(app);
 
 //EXPORTAR O OBJETO APP
-module.exports = app;
+module.exports = server;
