@@ -8,7 +8,7 @@ UsersDAO.prototype.authenticate = function (user, result) {
     var password = crypto.createHash("md5").update(user.password).digest('hex');
 
     this._connection.query(
-        "SELECT * FROM pt_users WHERE login = '" + user.login + "' AND password ='" + password + "'", result);
+        "SELECT * FROM rk_users WHERE login = '" + user.login + "' AND password ='" + password + "'", result);
 }
 
 UsersDAO.prototype.getMyUser = function (id, result) {

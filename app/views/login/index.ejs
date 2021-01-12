@@ -4,46 +4,112 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Payment - Login</title>
+    <title>Datelly - Login</title>
 
     <link href="css/Login/style.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2.min.css">
+    <!-- <link rel="stylesheet" href="css/dataTables.min.css">  -->
+    <script data-ad-client="ca-pub-4534131320426508" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="js/jquery-3.5.1.min.js"></script>
+
+    <style>
+        .inputData,
+        #entry {
+            height: 7rem;
+            font-size: 30pt;
+        }
+
+        @media(min-width: 1100px) {
+
+            .inputData,
+            #entry {
+                height: 3rem;
+                font-size: 15pt;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row-fluid user-row">
-                <img src="images/Adega.png" class="img-responsive" alt="Adega" />
-            </div>
-        </div>
-        <div class="panel-body">
 
-            <div class="row" id="alertLogin" style="visibility:hidden;">
-                <div class="col-md-12">
-                    <div class="alert alert-danger">
-                        <p>Usuário ou senha incorretos</p>
+    <!-- <div class="container"> -->
+    <div class="row vertical-offset-80">
+        <div class="col-md-12 col-md-offset-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row-fluid user-row">
+                        <img src="images/logo.png" class="img-responsive" alt="Multiroom Chat" />
                     </div>
                 </div>
+                <div class="panel-body">
+
+                    <div class="row" id="alertLogin" style="visibility:hidden;">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <p>Usuário ou senha incorretos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <form accept-charset="UTF-8" role="form" id="form-signin">
+                        <fieldset>
+                            <label class="panel-login">
+                                <div class="login_result"></div>
+                            </label>
+                            <label for="inputEmail" class="sr-only">Login</label>
+                            <input type="text" id="inputLogin" name="login" class="form-control inputData"
+                                placeholder="Login" required autofocus>
+                            <br></br>
+                            <label for="inputPassword" class="sr-only">Senha</label>
+                            <input type="password" id="inputPassword" name="password" class="form-control inputData"
+                                placeholder="Senha" required>
+                            <br></br>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" id="entry" value="Entrar »">
+                            <div class="register"> 
+                                <!-- <a href="#">Esqueci senha</a> -->
+                                <a href="/register">Registra-se</a>
+                                <!-- <a href="/account/create">Registra-se</a> -->
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
-            <form accept-charset="UTF-8" role="form" id="form-signin">
-                <label class="panel-login">
-                    <div class="login_result"></div>
-                </label>
-                <label for="inputEmail" class="sr-only">Login</label>
-                </br>
-                <input type="text" id="inputLogin" name="login" class="form-control inputData" required autofocus>
-                <br></br>
-                <label for="inputPassword" class="sr-only">Senha</label>
-                </br>
-                <input type="password" id="inputPassword" name="password" class="form-control inputData" required>
-                <br></br>
-                <button id="entry">Entrar >></button>
-            </form>
         </div>
-    </div> 
-    <script type="text/javascript" charset="utf8" src="js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="js/Login/login.js"></script>
+    </div>
+
+
+    <!-- </div>  -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+    <script>
+        $(function () {
+            // $('#alertLogin').removeClass('hidden');
+
+        });
+        $("#form-signin").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: "/authenticate",
+                method: "POST",
+                data: {
+                    login: $("#inputLogin").val(),
+                    password: $("#inputPassword").val(),
+                },
+                dataType: "json"
+            }).done(function (data) {
+                // $('#table_id').DataTable().ajax.reload();
+                window.location.href = "/goals";
+                return
+            }).fail(function (data) {
+                document.getElementById('alertLogin').style.visibility = 'visible';
+            });
+        });
+
+            // var socket = io('http://localhost/3000');
+
+    </script>
+
 </body>
 
 </html>
