@@ -1,0 +1,40 @@
+.jumbotron h1{
+    font-size: 60pt;
+}
+.jumbotron .lead{
+    font-size: 30pt;
+}
+.container-cash .input-group-text{
+    font-size: 25pt;
+}
+.container-cash input{
+    height: 5rem;
+    font-size: 25pt;
+}
+#quantity{
+    width: 40%;
+}
+#cash-save{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 4rem;
+    font-size: 3rem;
+}
+#return-back-redo-arrow{
+    width: 40px;
+    margin-bottom: 30px;
+}
+@media(min-width: 1000px){
+
+    .img-responsive{
+        width: 250px;
+        display: flex; 
+        justify-content: center;
+        align-items: center; 
+    }
+
+    .register{
+        font-size: 1.2rem;
+    }
+    
+}
